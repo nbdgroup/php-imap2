@@ -439,7 +439,7 @@ class ImapClient
      */
     protected function closeSocket()
     {
-        @fclose($this->fp);
+        if($this->fp) { @fclose($this->fp); }
         $this->fp = null;
     }
 
@@ -3085,7 +3085,7 @@ class ImapClient
                     $buffer = fread($msg_part, $chunk_size);
                     $this->putLine($buffer, false);
                 }
-                fclose($msg_part);
+                if($msg_part) { @fclose($msg_part); }
             }
             // string
             else {
